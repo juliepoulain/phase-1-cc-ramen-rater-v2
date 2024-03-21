@@ -54,6 +54,7 @@ const addSubmitListener = () => {
     ramenImg.alt = formRamen.name;
     ramenMenuDiv.append(ramenImg);
     handleSubmit(formRamen, ramenImg);
+    e.target.reset();
   });
 };
 
