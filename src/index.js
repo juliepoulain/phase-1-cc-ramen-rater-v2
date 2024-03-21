@@ -19,7 +19,7 @@ const displayRamens = () => {
     });
 };
 
-//when invoked, updates .detail-image with clicked ramen details)
+//when invoked, updates .detail-image with clicked ramen details
 const handleClick = (ramen) => {
   const detailImage = document.querySelector(".detail-image");
   detailImage.src = ramen.image;
