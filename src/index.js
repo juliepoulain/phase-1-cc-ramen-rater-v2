@@ -1,4 +1,3 @@
-//callback functions
 const displayRamens = () => {
   fetch(`http://localhost:3000/ramens/`)
     .then((r) => r.json())
@@ -32,6 +31,12 @@ const handleClick = (ramen) => {
   detailComment.textContent = ramen.comment;
 };
 
+const handleSubmit = (formRamen, ramenImg) => {
+  ramenImg.addEventListener("click", () => {
+    handleClick(formRamen);
+  });
+};
+
 const addSubmitListener = () => {
   const form = document.querySelector("#new-ramen");
   form.addEventListener("submit", (e) => {
@@ -41,24 +46,14 @@ const addSubmitListener = () => {
       restaurant: e.target.restaurant.value,
       image: e.target.image.value,
       rating: e.target.rating.value,
-      //including the comment value below causes the submission event to fail - need to continue to debug
-      // comment: e.target.comment.value,
+      comment: e.target["new-comment"].value,
     };
-    const postRamen = () => {
-      fetch("http://localhost:3000/ramens", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-          Accept: "application/json",
-        },
-        body: JSON.stringify(formRamen),
-      })
-        .then((r) => r.json())
-        .then((ramens) => {
-          console.log(ramens);
-        });
-    };
-    postRamen();
+    const ramenMenuDiv = document.querySelector("#ramen-menu");
+    const ramenImg = document.createElement("img");
+    ramenImg.src = formRamen.image;
+    ramenImg.alt = formRamen.name;
+    ramenMenuDiv.append(ramenImg);
+    handleSubmit(formRamen, ramenImg);
   });
 };
 
@@ -71,5 +66,4 @@ const main = () => {
   addSubmitListener();
 };
 
-//Export functions for testing
 export { displayRamens, addSubmitListener, handleClick, main };
